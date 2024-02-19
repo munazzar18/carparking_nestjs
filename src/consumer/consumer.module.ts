@@ -7,7 +7,10 @@ import { Consumer, consumerSchema } from './consumer.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([])
+    MongooseModule.forFeature([{
+      name: Consumer.name,
+      schema: consumerSchema
+    }])
   ],
   controllers: [ConsumerController],
   providers: [ConsumerService],

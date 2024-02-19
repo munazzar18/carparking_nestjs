@@ -8,38 +8,38 @@ Schema()
 export class Consumer {
 
     @ApiProperty()
-    @Prop()
+    @Prop({ required: true })
     username: string;
 
     @ApiProperty()
-    @Prop()
+    @Prop({ required: true, unique: true })
     email: string
 
-    @ApiProperty()
+    @ApiProperty({ required: true })
     @Prop()
     password: string
 
-    @ApiProperty()
+    @ApiProperty({ required: true })
     @Prop()
     customer_name: string
 
-    @ApiProperty()
+    @ApiProperty({ required: true })
     @Prop()
     address: string
 
-    @ApiProperty()
+    @ApiProperty({ required: true })
     @Prop()
     dob: Date
 
-    @ApiProperty()
+    @ApiProperty({ required: true })
     @Prop()
     driver_license: number
 
-    @ApiProperty()
+    @ApiProperty({ required: true })
     @Prop()
     vehichle_license_plate: string
 
-    @ApiProperty()
+    @ApiProperty({ required: true })
     @Prop()
     bank_account: string
 }
