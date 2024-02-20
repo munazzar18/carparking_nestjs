@@ -2,19 +2,26 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ConsumerService } from './consumer.service';
 import { CreateConsumerDto } from './dto/create-consumer.dto';
 import { UpdateConsumerDto } from './dto/update-consumer.dto';
+import { sendJson } from 'src/helper/sendJson';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('consumer')
+@ApiTags('consumer')
 export class ConsumerController {
-  constructor(private readonly consumerService: ConsumerService) {}
+  constructor(private readonly consumerService: ConsumerService) { }
+
 
   @Post()
-  create(@Body() createConsumerDto: CreateConsumerDto) {
-    return this.consumerService.create(createConsumerDto);
+  async create(@Body() createConsumerDto: CreateConsumerDto) {
+    const res = await this.consumerService.create(createConsumerDto);
+    console.log(res)
+    return sendJson(true, "consumer registered successfully", res)
   }
 
   @Get()
-  findAll() {
-    return this.consumerService.findAll();
+  async findAll() {
+    const findAll = await this.consumerService.findAll();
+    return sendJson(true, "Consumers found successfully", findAll)
   }
 
   @Get(':id')
