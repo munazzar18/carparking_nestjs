@@ -11,13 +11,6 @@ export class ConsumerController {
   constructor(private readonly consumerService: ConsumerService) { }
 
 
-  @Post()
-  async create(@Body() createConsumerDto: CreateConsumerDto) {
-    const res = await this.consumerService.create(createConsumerDto);
-    console.log(res)
-    return sendJson(true, "consumer registered successfully", res)
-  }
-
   @Get()
   async findAll() {
     const findAll = await this.consumerService.findAll();
@@ -27,6 +20,14 @@ export class ConsumerController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.consumerService.findOne(+id);
+  }
+
+
+  @Post()
+  async create(@Body() createConsumerDto: CreateConsumerDto) {
+    const res = await this.consumerService.create(createConsumerDto);
+    console.log(res)
+    return sendJson(true, "consumer registered successfully", res)
   }
 
   @Patch(':id')

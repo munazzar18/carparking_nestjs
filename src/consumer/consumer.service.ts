@@ -10,14 +10,6 @@ export class ConsumerService {
   constructor(
     @InjectModel(Consumer.name) private consumerModel: Model<Consumer>
   ) { }
-  async create(createConsumerDto: CreateConsumerDto) {
-    console.log("DTO", createConsumerDto)
-    const data = new this.consumerModel(createConsumerDto)
-    console.log("Data:", data)
-    const consumer = await data.save()
-    console.log("Consumer:", consumer)
-    return consumer
-  }
 
   async findAll() {
     return await this.consumerModel.find()
@@ -25,6 +17,12 @@ export class ConsumerService {
 
   findOne(id: number) {
     return `This action returns a #${id} consumer`;
+  }
+
+  async create(createConsumerDto: CreateConsumerDto) {
+    const data = new this.consumerModel(createConsumerDto)
+    const consumer = await data.save()
+    return consumer
   }
 
   update(id: number, updateConsumerDto: UpdateConsumerDto) {

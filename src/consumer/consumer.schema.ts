@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
 
-Schema()
+@Schema()
 export class Consumer {
 
     @ApiProperty()
@@ -9,7 +9,7 @@ export class Consumer {
     username: string;
 
     @ApiProperty()
-    @Prop({ required: true, unique: true })
+    @Prop({ type: String, required: true, unique: true })
     email: string
 
     @ApiProperty({ required: true })
@@ -39,6 +39,7 @@ export class Consumer {
     @ApiProperty({ required: true })
     @Prop()
     bank_account: string
+
 }
 
 export const consumerSchema = SchemaFactory.createForClass(Consumer)
