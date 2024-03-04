@@ -5,19 +5,6 @@ export class CreateConsumerDto {
 
     @ApiProperty()
     @IsNotEmpty()
-    username: string
-
-    @ApiProperty()
-    @IsNotEmpty()
-    @IsEmail()
-    email: string
-
-    @ApiProperty()
-    @IsNotEmpty()
-    password: string
-
-    @ApiProperty()
-    @IsNotEmpty()
     customer_name: string
 
     @ApiProperty()
@@ -41,4 +28,6 @@ export class CreateConsumerDto {
     @ApiProperty()
     @IsNotEmpty()
     bank_account: string
+
+
 }
