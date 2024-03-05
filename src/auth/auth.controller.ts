@@ -1,11 +1,16 @@
-import { Controller, Get, Post, Body, Request, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Request, Patch, Param, Delete, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from 'src/user/registerUser.dto';
 import { sendJson } from 'src/helper/sendJson';
 import { AuthGuard } from '@nestjs/passport';
+import MongooseClassSerializerInterceptor from 'src/user/mongooseClassSerializer.interceptor';
+import { User } from 'src/user/user.schema';
+import { ApiTags } from '@nestjs/swagger';
 
 
 @Controller('auth')
+@UseInterceptors(MongooseClassSerializerInterceptor(User))
+@ApiTags('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 

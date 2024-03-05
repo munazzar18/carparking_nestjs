@@ -1,9 +1,10 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
-import { SerializedUser, User } from 'src/user/user.schema';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException, UseInterceptors } from '@nestjs/common';
+import { User } from 'src/user/user.schema';
 import { UserService } from 'src/user/user.service';
 import { comparePass, encodedPass } from './bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from 'src/user/registerUser.dto';
+
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
     if (userDb) {
       const matched = comparePass(password, userDb.password)
       if (matched) {
-        return new SerializedUser(userDb)
+        return userDb
       } else {
         throw new UnauthorizedException('Invalid Credentials')
       }
