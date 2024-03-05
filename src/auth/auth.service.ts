@@ -1,6 +1,4 @@
 import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { SerializedUser, User } from 'src/user/user.schema';
 import { UserService } from 'src/user/user.service';
 import { comparePass, encodedPass } from './bcrypt';
@@ -10,7 +8,6 @@ import { RegisterUserDto } from 'src/user/registerUser.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User.name) private userModel: Model<User>,
     private userService: UserService,
     private jwtService: JwtService
   ) { }
@@ -36,7 +33,9 @@ export class AuthService {
       username: user.firstName,
       role: user.role
     }
+    console.log(payload)
     const accessToken = this.jwtService.sign(payload)
+    console.log(accessToken)
     return {
       access_token: accessToken,
       user: {
