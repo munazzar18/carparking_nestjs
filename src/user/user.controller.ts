@@ -27,7 +27,7 @@ export class UserController {
     }
 
     @Get('userId/:id')
-    async getById(@Param() { id }: ParamsWithId) {
+    async getById(@Param('id') id: string) {
         const user = await this.userService.findById(id)
         if (user) {
             return sendJson(true, 'User found by id', user)

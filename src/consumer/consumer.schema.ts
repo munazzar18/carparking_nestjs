@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { User } from "src/user/user.schema";
 
 @Schema()
@@ -24,7 +24,7 @@ export class Consumer {
     @Prop()
     bank_account: string
 
-    @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } })
+    @Prop({ type: Types.ObjectId, ref: "User" })
     user: User
 }
 

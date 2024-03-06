@@ -4,6 +4,7 @@ import { UpdateConsumerDto } from './dto/update-consumer.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Consumer } from './consumer.schema';
 import { Model } from 'mongoose';
+import { User } from 'src/user/user.schema';
 
 @Injectable()
 export class ConsumerService {
@@ -15,12 +16,13 @@ export class ConsumerService {
     return await this.consumerModel.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} consumer`;
+  async findOne(id: string) {
+    const consumer = await this.consumerModel.findById(id)
+    return consumer
   }
 
-  async create(createConsumerDto: CreateConsumerDto) {
-    const data = new this.consumerModel(createConsumerDto)
+  async create(createConsumerDto: CreateConsumerDto, authUser: User) {
+    const data = new this.consumerModel({ ...createConsumerDto, user: authUser })
     const consumer = await data.save()
     return consumer
   }

@@ -4,6 +4,7 @@ import { User } from './user.schema';
 import { Model } from 'mongoose';
 import { RegisterUserDto } from './registerUser.dto';
 import { userResponse } from 'src/helper/userResponse';
+import ParamsWithId from 'src/helper/paramsWithId';
 
 @Injectable()
 export class UserService {

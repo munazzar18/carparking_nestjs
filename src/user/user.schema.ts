@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Type } from "class-transformer";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { Consumer } from "src/consumer/consumer.schema";
 import { Role } from "src/roles/role.enum";
 
@@ -27,9 +27,8 @@ export class User {
     @Exclude()
     password: string
 
-    @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: Consumer.name } })
-    @Type(() => Consumer)
-    consumer: Consumer
+    @Prop({ type: [{ type: Types.ObjectId, ref: Consumer.name }] })
+    consumer: Consumer[]
 
 }
 

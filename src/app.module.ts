@@ -6,7 +6,6 @@ import { ProviderModule } from './provider/provider.module';
 import { ConsumerModule } from './consumer/consumer.module';
 import { UserModule } from './user/user.module';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtConstant } from './constants/jwtConstant';
 
 
 

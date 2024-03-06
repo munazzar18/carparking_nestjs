@@ -23,9 +23,22 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Cars Parking web app')
     .setDescription('Cars parking API')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      name: 'JWT',
+      description: 'Enter Jwt Token',
+      in: 'header'
+    })
     .build()
   const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('swagger', app, document)
+  SwaggerModule.setup('swagger', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+      displayRequestDuration: true
+    },
+  })
   await app.listen(4000);
 }
 bootstrap();

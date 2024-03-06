@@ -1,9 +1,9 @@
-import { ObjectId } from "mongoose"
+import { Types } from "mongoose"
 import { Role } from "src/roles/role.enum"
 
 
 interface User {
-
+    _id: Types.ObjectId,
     firstName: string,
     lastName: string,
     email: string,
@@ -13,7 +13,7 @@ interface User {
 
 export const userResponse = (user: User) => {
     return {
-
+        id: user._id.toJSON(),
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,

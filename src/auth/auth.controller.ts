@@ -6,6 +6,7 @@ import { AuthGuard } from '@nestjs/passport';
 import MongooseClassSerializerInterceptor from 'src/user/mongooseClassSerializer.interceptor';
 import { User } from 'src/user/user.schema';
 import { ApiTags } from '@nestjs/swagger';
+import { LoginUserDto } from 'src/user/loginUser.dto';
 
 
 @Controller('auth')
@@ -14,10 +15,24 @@ import { ApiTags } from '@nestjs/swagger';
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
+  // @UseGuards(AuthGuard('local'))
+  // @Post('/login')
+  // async login(@Request() req) {
+  //   const token = await this.authService.login(req.user)
+  //   return sendJson(true, "User login successfully", {
+  //     access_token: token.access_token,
+  //     user: token.user
+  //   })
+  // }
+
   @UseGuards(AuthGuard('local'))
   @Post('/login')
-  async login(@Request() req) {
-    const token = await this.authService.login(req.user)
+  async login(@Body() loginDto: LoginUserDto, @Request() req) {
+    const user = req.user
+    loginDto.firstName = user.firstName
+    loginDto.id = user.id
+    loginDto.role = user.role
+    const token = await this.authService.login(loginDto)
     return sendJson(true, "User login successfully", {
       access_token: token.access_token,
       user: token.user
