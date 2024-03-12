@@ -1,5 +1,5 @@
 enum Role {
-    Consumer = 'consumer',
+    User = 'user',
     Provider = 'provider',
     Admin = 'admin',
 }
