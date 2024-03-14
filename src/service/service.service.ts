@@ -14,13 +14,13 @@ export class ServiceService {
   ) { }
 
   async create(createServiceDto: CreateServiceDto, authUser: User) {
-    const service = new this.serviceModel({ ...createServiceDto, user: authUser })
+    const service = new this.serviceModel({ ...createServiceDto, provider: authUser })
     const data = await service.save()
     return data
   }
 
-  findAll() {
-    return `This action returns all service`;
+  async findAll() {
+    return await this.serviceModel.find();
   }
 
   findOne(id: number) {

@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request }
 import { ServiceService } from './service.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { RoleGuard } from 'src/roles/role.guard';
 import { Roles } from 'src/roles/role.decorator';
@@ -12,6 +12,7 @@ import { sendJson } from 'src/helper/sendJson';
 
 @Controller('service')
 @ApiTags('service')
+@ApiBearerAuth()
 export class ServiceController {
   constructor(private readonly serviceService: ServiceService) { }
 
@@ -25,8 +26,9 @@ export class ServiceController {
   }
 
   @Get()
-  findAll() {
-    return this.serviceService.findAll();
+  async findAll() {
+    const allServices = await this.serviceService.findAll();
+    return sendJson(true, "Services found successfully", allServices)
   }
 
   @Get(':id')

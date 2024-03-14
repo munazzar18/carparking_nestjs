@@ -1,9 +1,11 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Type } from "class-transformer";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { User } from "src/user/user.schema";
 
-@Schema()
+@Schema({
+    timestamps: true
+})
 export class Service {
 
     @Prop()
@@ -15,9 +17,8 @@ export class Service {
     @Prop()
     cost: number
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })
-    @Type(() => User)
-    provider: User
+    @Prop({ type: Types.ObjectId, ref: User.name })
+    provider: mongoose.Schema.Types.ObjectId
 }
 
 export const serviceSchema = SchemaFactory.createForClass(Service)

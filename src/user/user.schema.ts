@@ -3,8 +3,11 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Type } from "class-transformer";
 import mongoose, { Types } from "mongoose";
 import { Role } from "src/roles/role.enum";
+import { Service } from "src/service/service.schema";
 
-@Schema()
+@Schema({
+    timestamps: true
+})
 export class User {
 
     @Prop()
@@ -28,6 +31,9 @@ export class User {
 
     // @Prop({ type: { type: Types.ObjectId, ref: Consumer.name } })
     // consumer: Consumer[]
+
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }] })
+    services: mongoose.Schema.Types.ObjectId[]
 
 }
 
